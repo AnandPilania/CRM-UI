@@ -64,12 +64,6 @@ This branch structure allows:
 
 ---
 
-## 📄 License
-
-[Specify your license here, e.g., MIT]
-
----
-
 ## 📬 Contact
 
 For questions, issues, or contributions, please open a [GitHub Issue](../../issues).
