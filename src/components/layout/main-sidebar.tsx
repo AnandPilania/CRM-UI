@@ -101,87 +101,107 @@ export function MainSidebar({ isOpen, onToggle }: MainSidebarProps) {
 
   return (
     <div className={cn(
-      "flex flex-col border-r bg-background transition-all duration-300",
+      "flex flex-col border-r bg-background transition-all duration-300 relative",
       isOpen ? "w-64" : "w-16"
     )}>
       <div className="flex h-16 items-center justify-between border-b px-4">
-        <div className={cn(
-          "flex items-center gap-2 font-semibold transition-all duration-300",
-          isOpen ? "opacity-100" : "opacity-0 invisible"
-        )}>
-          <span className="text-primary text-xl">MetaForce</span>
-        </div>
+        {isOpen ? (
+          <div className={cn(
+            "flex items-center gap-2 font-semibold transition-all duration-300",
+            isOpen ? "opacity-100" : "opacity-0 invisible"
+          )}>
+            <span className="text-primary text-xl">MetaForce</span>
+          </div>
+        ) : <div />}
         <Button 
           variant="ghost" 
           size="icon" 
           onClick={onToggle}
           className="h-8 w-8"
+          aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
         >
           {isOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
         </Button>
       </div>
-
-      <ScrollArea className="flex-1">
-        <nav className="flex flex-col gap-1 p-2">
-          {navItems.map((item) => (
-            <div key={item.id} className="flex flex-col">
-              <Link
-                to={item.href}
-                className={cn(
-                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all",
-                  location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)
-                    ? "bg-accent text-accent-foreground"
-                    : "hover:bg-accent/50",
-                  !isOpen && "justify-center"
-                )}
-              >
-                {item.icon}
-                {isOpen && (
-                  <div className="flex flex-1 items-center justify-between">
-                    <span>{item.label}</span>
-                    {item.expandable && (
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-5 w-5"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toggleExpand(item.id);
-                        }}
+      {isOpen ? (
+        <ScrollArea className="flex-1">
+          <nav className="flex flex-col gap-1 p-2">
+            {navItems.map((item) => (
+              <div key={item.id} className="flex flex-col">
+                <Link
+                  to={item.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all",
+                    location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)
+                      ? "bg-accent text-accent-foreground"
+                      : "hover:bg-accent/50",
+                    !isOpen && "justify-center"
+                  )}
+                >
+                  {item.icon}
+                  {isOpen && (
+                    <div className="flex flex-1 items-center justify-between">
+                      <span>{item.label}</span>
+                      {item.expandable && (
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-5 w-5"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleExpand(item.id);
+                          }}
+                        >
+                          {expandedItems[item.id] ? 
+                            <ChevronUp className="h-3 w-3" /> : 
+                            <ChevronDown className="h-3 w-3" />
+                          }
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </Link>
+                {/* Submenu items */}
+                {isOpen && item.expandable && expandedItems[item.id] && item.children && (
+                  <div className="ml-6 mt-1 flex flex-col gap-1">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.id}
+                        to={child.href}
+                        className={cn(
+                          "flex items-center rounded-md px-3 py-1.5 text-sm transition-all",
+                          location.pathname === child.href
+                            ? "bg-accent/50 text-accent-foreground"
+                            : "text-muted-foreground hover:bg-accent/30 hover:text-accent-foreground"
+                        )}
                       >
-                        {expandedItems[item.id] ? 
-                          <ChevronUp className="h-3 w-3" /> : 
-                          <ChevronDown className="h-3 w-3" />
-                        }
-                      </Button>
-                    )}
+                        {child.label}
+                      </Link>
+                    ))}
                   </div>
                 )}
-              </Link>
-
-              {/* Submenu items */}
-              {isOpen && item.expandable && expandedItems[item.id] && item.children && (
-                <div className="ml-6 mt-1 flex flex-col gap-1">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.id}
-                      to={child.href}
-                      className={cn(
-                        "flex items-center rounded-md px-3 py-1.5 text-sm transition-all",
-                        location.pathname === child.href
-                          ? "bg-accent/50 text-accent-foreground"
-                          : "text-muted-foreground hover:bg-accent/30 hover:text-accent-foreground"
-                      )}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
+              </div>
+            ))}
+          </nav>
+        </ScrollArea>
+      ) : (
+        <nav className="flex flex-col items-center gap-2 py-4">
+          {navItems.map((item) => (
+            <Link
+              key={item.id}
+              to={item.href}
+              className={cn(
+                "flex items-center justify-center rounded-md p-2 transition-all",
+                location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)
+                  ? "bg-accent text-accent-foreground"
+                  : "hover:bg-accent/50"
               )}
-            </div>
+            >
+              {item.icon}
+            </Link>
           ))}
         </nav>
-      </ScrollArea>
+      )}
     </div>
   );
 }

@@ -12,37 +12,13 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Search } from "lucide-react";
+import { mockSearchResponse } from "@/mocks";
 
 export function GlobalSearch() {
   const [open, setOpen] = useState(false);
 
-  // Placeholder search results
-  const searchResults = {
-    objects: [
-      { id: "1", name: "Account", type: "Standard Object" },
-      { id: "2", name: "Contact", type: "Standard Object" },
-      { id: "3", name: "Opportunity", type: "Standard Object" },
-      { id: "4", name: "CustomObject__c", type: "Custom Object" },
-    ],
-    fields: [
-      { id: "1", name: "Name", objectName: "Account", type: "Text" },
-      { id: "2", name: "Email", objectName: "Contact", type: "Email" },
-      { id: "3", name: "Amount", objectName: "Opportunity", type: "Currency" },
-    ],
-    records: [
-      { id: "1", name: "Acme Corp", type: "Account" },
-      { id: "2", name: "John Doe", type: "Contact" },
-      { id: "3", name: "Enterprise Deal", type: "Opportunity" },
-    ],
-    layouts: [
-      { id: "1", name: "Account Layout", objectName: "Account" },
-      { id: "2", name: "Contact Layout", objectName: "Contact" },
-    ],
-    reports: [
-      { id: "1", name: "Sales Pipeline", type: "Report" },
-      { id: "2", name: "Customer Contacts", type: "Report" },
-    ],
-  };
+  // Use centralized mock search results
+  const searchResults = mockSearchResponse.data;
 
   // Toggle the command dialog
   const toggleSearch = () => {

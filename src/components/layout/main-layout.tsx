@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MainNav } from "./main-nav";
 import { MainSidebar } from "./main-sidebar";
 import { ContextualSidebar } from "./contextual-sidebar";
@@ -22,6 +22,21 @@ export function MainLayout({
 }: MainLayoutProps) {
   const [mainSidebarOpen, setMainSidebarOpen] = useState(true);
   const [contextualSidebarOpen, setContextualSidebarOpen] = useState(true);
+
+  // Keyboard navigation for sidebars
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'l') {
+      setMainSidebarOpen((open) => !open);
+    }
+    if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'r') {
+      setContextualSidebarOpen((open) => !open);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">

@@ -1,40 +1,50 @@
-# Shadcn-UI Template Usage Instructions
+## Swapping Between Mock Data and Real API
 
-## technology stack
+This project is designed to be metadata-driven and makes it easy to switch between mock data and a real Laravel API.
 
-This project is built with:
+### Using Mock Data (Default)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The context providers for metadata and layouts import mock data from `src/mocks/`:
 
-All shadcn/ui components have been downloaded under `@/components/ui`.
+```ts
+// Example: src/contexts/metadata-context.tsx
+import { mockObjectsResponse } from "@/mocks";
 
-## File Structure
+useEffect(() => {
+  // ...
+  setObjects(mockObjectsResponse.data); // Uses mock data
+  // ...
+}, []);
+```
 
-- `index.html` - HTML entry point
-- `vite.config.ts` - Vite configuration file
-- `tailwind.config.js` - Tailwind CSS configuration file
-- `package.json` - NPM dependencies and scripts
-- `src/app.tsx` - Root component of the project
-- `src/main.tsx` - Project entry point
-- `src/index.css` - Existing CSS configuration
+### Switching to Real API
 
-## Components
+To use a real Laravel API, replace the mock import and assignment with an API call (e.g., using fetch or axios):
 
-- All shadcn/ui components are pre-downloaded and available at `@/components/ui`
+```ts
+// Example: src/contexts/metadata-context.tsx
+// import { mockObjectsResponse } from "@/mocks"; // Remove this
 
-## Styling
+useEffect(() => {
+  const loadData = async () => {
+    try {
+      setIsLoading(true);
+      // Fetch from your Laravel API
+      const response = await fetch("/api/objects");
+      const apiResponse = await response.json();
+      setObjects(apiResponse.data); // Uses real API data
+    } catch (err) {
+      setError("Failed to load metadata objects");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  loadData();
+}, []);
+```
 
-- Add global styles to `src/index.css` or create new CSS files as needed
-- Use Tailwind classes for styling components
-
-## Development
-
-- Import components from `@/components/ui` in your React components
-- Customize the UI by modifying the Tailwind configuration
+> **Tip:** The API response shape should match the `ApiResponse<T>` or `PaginatedResponse<T>` types in `src/types/index.ts` for seamless integration.
 
 ## Note
 

@@ -12,12 +12,12 @@ import NotFound from './pages/NotFound';
 // Objects
 import ObjectsList from './pages/objects/ObjectsList';
 import ObjectDetail from './pages/objects/ObjectDetail';
-// import ObjectManager from './pages/objects/ObjectManager';
-// import ObjectRecords from './pages/objects/ObjectRecords';
-// import ObjectCreate from './pages/objects/ObjectCreate';
-// import FieldsList from './pages/objects/FieldsList';
-// import FieldDetail from './pages/objects/FieldDetail';
-// import FieldCreate from './pages/objects/FieldCreate';
+import ObjectManager from './pages/objects/ObjectManager';
+import ObjectCreate from './pages/objects/ObjectCreate';
+import ObjectRecords from './pages/objects/ObjectRecords';
+import FieldsList from './pages/objects/FieldsList';
+import FieldDetail from './pages/objects/FieldDetail';
+import FieldCreate from './pages/objects/FieldCreate';
 
 // Layouts
 // import LayoutsList from './pages/layouts/LayoutsList';
@@ -61,13 +61,13 @@ const App = () => (
               <Route path="/objects/all" element={<ObjectsList />} />
               <Route path="/objects/standard" element={<ObjectsList standardOnly />} />
               <Route path="/objects/custom" element={<ObjectsList customOnly />} />
-              {/* <Route path="/objects/manager" element={<ObjectManager />} />
-              <Route path="/objects/create" element={<ObjectCreate />} /> */}
+              <Route path="/objects/manager" element={<ObjectManager />} />
+              <Route path="/objects/create" element={<ObjectCreate />} />
               <Route path="/objects/:objectApiName" element={<ObjectDetail />} />
-              {/* <Route path="/objects/:objectApiName/fields" element={<FieldsList />} />
+              <Route path="/objects/:objectApiName/fields" element={<FieldsList />} />
               <Route path="/objects/:objectApiName/fields/create" element={<FieldCreate />} />
               <Route path="/objects/:objectApiName/fields/:fieldId" element={<FieldDetail />} />
-              <Route path="/objects/:objectApiName/records" element={<ObjectRecords />} /> */}
+              <Route path="/objects/:objectApiName/records" element={<ObjectRecords />} />
 
               {/* Layouts routes */}
               {/* <Route path="/layouts" element={<LayoutsList />} />
