@@ -4,12 +4,13 @@ This repository contains multiple versions of the project, structured into separ
 
 ## 📂 Branches Overview
 
-| Branch   | Description                                                         |
-| -------- | ------------------------------------------------------------------- |
-| **main** | Contains documentation and overall project information.             |
-| **v1**   | Laravel + React.js implementation with page only.                   |
-| **v2**   | Implementation using shadcn-ui components and setup.                |
-| **v3**   | Extended implementation with shadcn-ui and additional enhancements. |
+| Branch   | Description                                                                               |
+| -------- | ----------------------------------------------------------------------------------------- |
+| **main** | Contains documentation and overall project information.                                   |
+| **v1**   | Laravel + React.js implementation with page only.                                         |
+| **v2**   | Implementation using shadcn-ui components and setup.                                      |
+| **v3**   | Extended implementation with shadcn-ui and additional enhancements.                       |
+| **v4**   | Implemented horizontal and sidebar navigation with shadcn-ui and additional enhancements. |
 
 ---
 
@@ -29,6 +30,11 @@ This repository contains multiple versions of the project, structured into separ
 
 - Builds upon v2 with more innovative approach
 - Includes additional shadcn-ui components and layout or feature enhancements
+-
+### v4
+
+- Builds upon v3 + our current implementation with more innovative approach
+- Includes additional shadcn-ui components and layout or feature enhancements
 
 ---
 
@@ -39,7 +45,7 @@ To use a specific version:
 ```bash
 git clone <repo-url>
 cd <repo-directory>
-git checkout v1   # or v2 or v3
+git checkout v1   # or v2 or v3 or v4
 ```
 
 Follow the README or setup instructions inside each branch for installation and running locally.
@@ -58,7 +64,7 @@ This branch structure allows:
 
 ## 🤝 Contributing
 
-- Create your feature or fix branch off the relevant version branch (`v1`, `v2`, or `v3`).
+- Create your feature or fix branch off the relevant version branch (`v1`, `v2`, `v3` or `v4`).
 - Submit pull requests targeting the respective version branch.
 - Keep `main` updated only with documentation and meta information.
 

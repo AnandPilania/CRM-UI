@@ -1,2 +1,6 @@
 /.vite
+/.mgx
+/.vscode
+/dist
+/public
 /node_modules
